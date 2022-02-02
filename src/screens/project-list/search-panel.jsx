@@ -1,16 +1,13 @@
 import React from "react"
 
 export const SearchPanel = ({users, param, setParam}) => {
-   
-    
-   
-    
+
     return <form action="">
         <div>
         {/* setParam(Object.assign({}, param, {name: evt.target.value})) */}
             <input type="text" 
             value={param.name} 
-            onChange={evt => setParam({...param,name: evt.target.value})}>
+            onChange={evt => setParam({...param, name: evt.target.value})}>
 
             </input>
             <select 
