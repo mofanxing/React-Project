@@ -21,19 +21,6 @@ export const useMount = (callback: () => void) => {
   }, [])
 }
 
-//防抖函数
-// const debounce = (func, delay) => {
-//   let timeout
-//   return (...param) => {
-//     if(timeout) {
-//       clearTimeout(timeout)
-//     }
-//     timeout = setTimeout(function() {
-//       func(...param)
-//     }, delay)
-//   }
-// }
-
 export const useDebounce = <V>(value: V, delay?: number) => {
   const [debounceValue, setDebounceValue] = useState(value)
 
