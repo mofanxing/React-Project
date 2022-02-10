@@ -9,8 +9,8 @@ export const handleUserResponse = ({ user }: { user: User }) => {
   return user
 }
 
-export const login = (data: { username: string; passowrd: string }) => {
-  fetch(`${apiUrl}/login`, {
+export const login = (data: { username: string; password: string }) => {
+  return fetch(`${apiUrl}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -18,13 +18,15 @@ export const login = (data: { username: string; passowrd: string }) => {
     body: JSON.stringify(data),
   }).then(async (response) => {
     if (response.ok) {
-      handleUserResponse(await response.json())
+      return handleUserResponse(await response.json())
+    } else {
+      return Promise.reject(await response.json())
     }
   })
 }
 
-export const regsiter = (data: { username: string; passowrd: string }) => {
-  fetch(`${apiUrl}/regsiter`, {
+export const regsiter = (data: { username: string; password: string }) => {
+  return fetch(`${apiUrl}/regsiter`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,9 +34,12 @@ export const regsiter = (data: { username: string; passowrd: string }) => {
     body: JSON.stringify(data),
   }).then(async (response) => {
     if (response.ok) {
-      handleUserResponse(await response.json())
+      return handleUserResponse(await response.json())
+    } else {
+      return Promise.reject(await response.json())
     }
   })
 }
 
-export const logout = () => window.localStorage.removeItem(localStorageKey)
+export const logout = async () =>
+  window.localStorage.removeItem(localStorageKey)
