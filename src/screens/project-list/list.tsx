@@ -1,6 +1,5 @@
 import { Table } from 'antd'
 import dayjs from 'dayjs'
-import React from 'react'
 import { User } from './search-panel'
 interface Project {
   id: string
