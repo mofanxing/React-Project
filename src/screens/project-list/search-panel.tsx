@@ -1,4 +1,6 @@
-import { Input, Select } from 'antd'
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react'
+import { Form, Input, Select } from 'antd'
 import React from 'react'
 
 export interface User {
@@ -19,14 +21,16 @@ interface SearchPanelTypes {
 }
 export const SearchPanel = ({ users, param, setParam }: SearchPanelTypes) => {
   return (
-    <form action="">
-      <div>
+    <Form css={{ marginBottom: '2rem', '> *': '' }} layout={'inline'}>
+      <Form.Item>
         {/* setParam(Object.assign({}, param, {name: evt.target.value})) */}
         <Input
           type="text"
           value={param.name}
           onChange={(evt) => setParam({ ...param, name: evt.target.value })}
         ></Input>
+      </Form.Item>
+      <Form.Item>
         <Select
           value={param.personId}
           onChange={(value) => setParam({ ...param, personId: value })}
@@ -38,7 +42,7 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelTypes) => {
             </Select.Option>
           ))}
         </Select>
-      </div>
-    </form>
+      </Form.Item>
+    </Form>
   )
 }
