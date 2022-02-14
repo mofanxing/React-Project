@@ -1,37 +1,22 @@
 import { List } from './list'
 import { SearchPanel } from './search-panel'
-import { useEffect, useState } from 'react'
-import { cleanObject, useDebounce, useMount } from 'utils'
+import { useState } from 'react'
+import { useDebounce, useMount } from 'utils'
 import { useHttp } from 'utils/http'
 import styled from '@emotion/styled'
 import { Typography } from 'antd'
+import { useProjects } from 'utils/project'
 
 export const ProjectListScreen = () => {
   const [param, setParam] = useState({
     name: '',
     personId: '',
   })
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<null | Error>(null)
-  const [users, setUsers] = useState([])
-  const [list, setList] = useState([])
   const debouncedParam = useDebounce(param, 500)
-  const client = useHttp()
+  const [users, setUsers] = useState([])
 
-  useEffect(() => {
-    setIsLoading(true)
-    client('projects', { data: cleanObject(debouncedParam) })
-      .then(setList)
-      .catch((error) => {
-        setList([])
-        setError(error)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-    // eslint-disable-next-line
-  }, [debouncedParam])
+  const client = useHttp()
+  const { isLoading, error, data: list } = useProjects(debouncedParam)
 
   useMount(() => {
     client('users').then(setUsers)
@@ -48,7 +33,7 @@ export const ProjectListScreen = () => {
       {error ? (
         <Typography.Text type={'danger'}>{error.message}</Typography.Text>
       ) : null}
-      <List loading={isLoading} dataSource={list} users={users}></List>
+      <List loading={isLoading} dataSource={list || []} users={users}></List>
     </Container>
   )
 }
