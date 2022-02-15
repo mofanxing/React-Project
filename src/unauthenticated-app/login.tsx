@@ -2,10 +2,21 @@ import { useAuth } from 'context/auth-context'
 import { Form, Input } from 'antd'
 import { LongButton } from 'unauthenticated-app'
 
-export const LoginScreen = () => {
+export const LoginScreen = ({
+  onError,
+}: {
+  onError: (error: Error) => void
+}) => {
   const { login } = useAuth()
-  const handleSubmit = (values: { username: string; password: string }) => {
-    login(values)
+  const handleSubmit = async (values: {
+    username: string
+    password: string
+  }) => {
+    try {
+      await login(values)
+    } catch (e) {
+      onError(e as Error)
+    }
   }
   return (
     <Form onFinish={handleSubmit}>
