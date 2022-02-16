@@ -1,7 +1,7 @@
 import { List } from './list'
 import { SearchPanel } from './search-panel'
 import { useState } from 'react'
-import { useDebounce } from 'utils'
+import { useDebounce, useDocumentTitle } from 'utils'
 import styled from '@emotion/styled'
 import { Typography } from 'antd'
 import { useProjects } from 'utils/project'
@@ -13,7 +13,7 @@ export const ProjectListScreen = () => {
     personId: '',
   })
   const debouncedParam = useDebounce(param, 500)
-
+  useDocumentTitle('注册', false)
   const { isLoading, error, data: list } = useProjects(debouncedParam)
   const { data: users } = useUser()
   return (
