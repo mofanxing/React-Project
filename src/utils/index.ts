@@ -36,7 +36,6 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
   const oldTitle = useRef(document.title).current
   // 页面加载时: 旧title
   // 加载后：新title
-  //test
 
   useEffect(() => {
     document.title = title
