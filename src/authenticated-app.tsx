@@ -24,12 +24,17 @@ export const AuthenticatedApp = () => {
   )
 }
 
+// 重置路由
+export const resetRoute = () => (window.location.href = window.location.origin)
+
 const PageHeader = () => {
   const { logout, user } = useAuth()
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
+        <Button type={'link'} onClick={resetRoute}>
+          <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
+        </Button>
         <h2>Logo</h2>
         <h2>项目</h2>
         <h2>用户</h2>
