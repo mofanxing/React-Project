@@ -10,5 +10,5 @@ export const useUrlQueryParam = (keys: string[]) => {
       return { ...prev, [key]: searchParams.get(key) }
     }, {}),
     setSearchParams,
-  ]
+  ] as const
 }
