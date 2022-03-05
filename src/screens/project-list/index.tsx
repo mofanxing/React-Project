@@ -13,7 +13,8 @@ export const ProjectListScreen = () => {
     name: '',
     personId: '',
   })
-  const [param] = useUrlQueryParam(['name', 'personId'])
+  const [keys] = useState<('name' | 'personId')[]>(['name', 'personId'])
+  const [param] = useUrlQueryParam(keys)
   useDocumentTitle('项目列表', false)
   const debouncedParam = useDebounce(param, 500)
   const { isLoading, error, data: list } = useProjects(debouncedParam)
