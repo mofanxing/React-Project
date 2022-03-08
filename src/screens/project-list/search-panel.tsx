@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Input, Select } from 'antd'
+import { UserSelect } from 'components/user-select'
 import { Project } from './list'
 
 export interface User {
@@ -12,7 +13,7 @@ export interface User {
 }
 interface SearchPanelTypes {
   users: User[]
-  param: Pick<Project, 'name' | 'personId'>
+  param: Partial<Pick<Project, 'name' | 'personId'>>
   setParam: (param: SearchPanelTypes['param']) => void
 }
 export const SearchPanel = ({ users, param, setParam }: SearchPanelTypes) => {
@@ -27,17 +28,11 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelTypes) => {
         ></Input>
       </Form.Item>
       <Form.Item>
-        <Select
+        <UserSelect
+          defaultOptionName={'负责人'}
           value={param.personId}
           onChange={(value) => setParam({ ...param, personId: value })}
-        >
-          <Select.Option value={''}>负责人</Select.Option>
-          {users.map((user) => (
-            <Select.Option key={user.id} value={String(user.id)}>
-              {user.name}
-            </Select.Option>
-          ))}
-        </Select>
+        ></UserSelect>
       </Form.Item>
     </Form>
   )
