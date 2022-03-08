@@ -1,4 +1,5 @@
 import { Table, TableProps } from 'antd'
+import { Pin } from 'components/pin'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { User } from './search-panel'
@@ -20,6 +21,12 @@ export const List = ({ users, ...props }: ListProps) => {
       rowKey={'id'}
       pagination={false}
       columns={[
+        {
+          title: <Pin checked={true} disabled={true} />,
+          render(value, project) {
+            return <Pin checked={project.pin} onCheckedChange={} />
+          },
+        },
         {
           title: '名称',
           dataIndex: 'name',
