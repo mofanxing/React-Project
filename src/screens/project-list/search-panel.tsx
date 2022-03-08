@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Input, Select } from 'antd'
+import { Project } from './list'
 
 export interface User {
-  id: string
+  id: number
   name: string
   email: string
   title: string
@@ -11,10 +12,7 @@ export interface User {
 }
 interface SearchPanelTypes {
   users: User[]
-  param: {
-    name: string
-    personId: string
-  }
+  param: Pick<Project, 'name' | 'personId'>
   setParam: (param: SearchPanelTypes['param']) => void
 }
 export const SearchPanel = ({ users, param, setParam }: SearchPanelTypes) => {

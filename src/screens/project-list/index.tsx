@@ -10,7 +10,11 @@ import { useUrlQueryParam } from 'utils/url'
 export const ProjectListScreen = () => {
   const [param, setParam] = useUrlQueryParam(['name', 'personId'])
   useDocumentTitle('项目列表', false)
-  const debouncedParam = useDebounce(param, 500)
+  const projectsParam = {
+    ...param,
+    personId: Number(param.personId) || undefined,
+  }
+  const debouncedParam = useDebounce(projectsParam, 500)
   const { isLoading, error, data: list } = useProjects(debouncedParam)
   const { data: users } = useUser()
   return (
