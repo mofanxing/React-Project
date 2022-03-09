@@ -60,6 +60,10 @@ export const useAsync = <D>(
       })
   }
 
+  const retry = () => {
+    run(oldPromise)
+  }
+
   return {
     isIdle: state.stat === 'idle',
     isLoading: state.stat === 'loading',
@@ -69,7 +73,7 @@ export const useAsync = <D>(
     setData,
     setError,
     //retry被调用时重新调用run方法
-    retry: () => {},
+    retry,
     ...state,
   }
 }
