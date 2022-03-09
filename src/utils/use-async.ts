@@ -68,6 +68,8 @@ export const useAsync = <D>(
     run,
     setData,
     setError,
+    //retry被调用时重新调用run方法
+    retry: () => {},
     ...state,
   }
 }
