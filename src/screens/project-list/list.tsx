@@ -2,6 +2,7 @@ import { Table, TableProps } from 'antd'
 import { Pin } from 'components/pin'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
+import { useEditProject } from 'utils/project'
 import { User } from './search-panel'
 export interface Project {
   id: number
@@ -16,6 +17,7 @@ interface ListProps extends TableProps<Project> {
 }
 
 export const List = ({ users, ...props }: ListProps) => {
+  const { mutate } = useEditProject()
   return (
     <Table
       rowKey={'id'}
