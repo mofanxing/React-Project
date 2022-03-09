@@ -16,14 +16,4 @@ export const useProjects = (param?: Partial<Project>) => {
   return result
 }
 
-export const useEditProject = (queryKey: QueryKey) => {
-  const client = useHttp()
-  return useMutation(
-    (params: Partial<Project>) =>
-      client(`projects/${params.id}`, {
-        method: 'PATCH',
-        data: params,
-      }),
-    useEditConfig(queryKey)
-  )
-}
+export const useEditProject = () => {}
