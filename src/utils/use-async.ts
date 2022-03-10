@@ -26,6 +26,9 @@ export const useAsync = <D>(
     ...initialState,
   })
 
+  // 利用useState惰性初始化实现保存函数
+  const [retry, setRetry] = useState(() => () => {})
+
   const setData = (data: D) =>
     setState({
       data,
@@ -44,6 +47,10 @@ export const useAsync = <D>(
     if (!promise || !promise.then) {
       throw new Error('请传入 Promise 类型数据')
     }
+
+    setRetry(() => () => {
+      run(promise)
+    })
     setState({
       ...state,
       stat: 'loading',
@@ -58,10 +65,6 @@ export const useAsync = <D>(
         setError(error)
         if (config.throwOnError) return Promise.reject(error)
       })
-  }
-
-  const retry = () => {
-    run(oldPromise)
   }
 
   return {
