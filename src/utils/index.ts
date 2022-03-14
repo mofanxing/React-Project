@@ -50,3 +50,17 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
     }
   }, [keepOnUnmount, oldTitle])
 }
+
+//用来返回组件的加载状态、挂载状态，如果还没挂载或已卸载返回false
+export const useMountedRef = () => {
+  const mountedRef = useRef(false)
+
+  useEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+    }
+  })
+
+  return mountedRef
+}
