@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useMountedRef } from 'utils'
 
 interface State<D> {
   error: Error | null
@@ -26,6 +27,7 @@ export const useAsync = <D>(
     ...initialState,
   })
 
+  const mountedRef = useMountedRef()
   // 利用useState惰性初始化实现保存函数
   const [retry, setRetry] = useState(() => () => {})
 
@@ -63,8 +65,10 @@ export const useAsync = <D>(
 
     return promise
       .then((data) => {
-        setData(data)
-        return data
+        if (mountedRef.current) {
+          setData(data)
+          return data
+        }
       })
       .catch((error) => {
         setError(error)
