@@ -12,6 +12,7 @@ export const useProjects = (param?: Partial<Project>) => {
     () => client('projects', { data: cleanObject(param || {}) }),
     [client, param]
   )
+  // 使用useCallback解决加入依赖无限渲染问题
   useEffect(() => {
     run(fetchProjects(), {
       retry: fetchProjects,
