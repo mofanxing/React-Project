@@ -5,9 +5,13 @@ export const ProjectModal = (props: {
   onClose: () => void
 }) => {
   return (
-    <Drawer visible={props.projectModalOpen} width={'100%'}>
+    <Drawer
+      onClose={props.onClose}
+      visible={props.projectModalOpen}
+      width={'100%'}
+    >
       <h1>project Modal</h1>
-      <Button onClick={props.onClose}></Button>
+      <Button onClick={props.onClose}>关闭</Button>
     </Drawer>
   )
 }
