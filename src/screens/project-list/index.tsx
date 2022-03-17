@@ -37,6 +37,7 @@ export const ProjectListScreen = (props: {
         <Typography.Text type={'danger'}>{error.message}</Typography.Text>
       ) : null}
       <List
+        setProjectModalOpen={props.setProjectModalOpen}
         loading={isLoading}
         dataSource={list || []}
         users={users || []}
