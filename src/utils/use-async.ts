@@ -26,7 +26,7 @@ const useSafeDispatch = <T>(dispatch: (...args: T[]) => void) => {
   )
 }
 
-//使用useReducer改造
+//使用useReducer改造useAsync
 export const useAsync = <D>(
   initialState?: State<D>,
   initialConfig?: typeof defaultConfig
