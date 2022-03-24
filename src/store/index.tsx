@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { projectListSlice } from 'screens/project-list/project-list.slice'
 
 export const rootReducer = {
-  kanbanList: projectListSlice.reducer,
+  projectList: projectListSlice.reducer,
 }
 
 export const store = configureStore({
