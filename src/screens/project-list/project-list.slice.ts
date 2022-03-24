@@ -20,3 +20,5 @@ export const projectListSlice = createSlice({
     },
   },
 })
+
+export const projectListActions = projectListSlice.actions

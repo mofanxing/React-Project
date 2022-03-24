@@ -8,7 +8,7 @@ import { useUser } from 'utils/user'
 import { useProjectsSearchParams } from './util'
 import { Row } from 'components/lib'
 
-export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
+export const ProjectListScreen = () => {
   useDocumentTitle('项目列表', false)
   const [param, setParam] = useProjectsSearchParams()
   const {
@@ -22,7 +22,6 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     <Container>
       <Row between={true}>
         <h1>项目列表</h1>
-        {props.projectButton}
       </Row>
       <SearchPanel
         param={param}
@@ -33,7 +32,6 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
         <Typography.Text type={'danger'}>{error.message}</Typography.Text>
       ) : null}
       <List
-        projectButton={props.projectButton}
         loading={isLoading}
         dataSource={list || []}
         users={users || []}
