@@ -3,7 +3,7 @@ import { Divider, List, Popover, Typography } from 'antd'
 import { useProjects } from 'utils/project'
 
 export const ProjectPopover = (props: { projectButton: JSX.Element }) => {
-  const { data: projects, isLoading } = useProjects()
+  const { data: projects } = useProjects()
   const pinnedProjects = projects?.filter((project) => project.pin)
 
   const content = (
