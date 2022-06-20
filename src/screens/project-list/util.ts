@@ -18,7 +18,11 @@ export const useProjectModal = () => {
   ])
 
   const open = () => setProjectCreate({ projectCreate: true })
-  const close = () => setProjectCreate({ projectCreate: false })
+  const close = () => setProjectCreate({ projectCreate: undefined })
 
-  return [projectCreate === 'true', open, close] as const
+  return {
+    projectModalOpen: projectCreate === 'true',
+    open,
+    close,
+  }
 }
