@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp()
 
-  return useQuery(['projects', param], () =>
+  return useQuery<Project[]>(['projects', param], () =>
     client('projects', { data: param })
   )
 }
