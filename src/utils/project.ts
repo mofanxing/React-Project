@@ -2,9 +2,14 @@ import { Project } from 'screens/project-list/list'
 
 import { useAsync } from 'utils/use-async'
 import { useHttp } from 'utils/http'
+import { useQuery } from 'react-query'
 
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp()
+
+  return useQuery(['projects', param], () =>
+    client('projects', { data: param })
+  )
 }
 
 export const useEditProject = () => {
