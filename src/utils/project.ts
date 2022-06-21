@@ -2,7 +2,7 @@ import { Project } from 'screens/project-list/list'
 
 import { useAsync } from 'utils/use-async'
 import { useHttp } from 'utils/http'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp()
@@ -13,20 +13,18 @@ export const useProjects = (param?: Partial<Project>) => {
 }
 
 export const useEditProject = () => {
-  const { run, ...asyncResult } = useAsync()
   const client = useHttp()
-  const mutate = (params: Partial<Project>) => {
-    return run(
+  const queryClient = useQueryClient()
+  return useMutation(
+    (params: Partial<Project>) =>
       client(`projects/${params.id}`, {
-        data: params,
         method: 'PATCH',
-      })
-    )
-  }
-  return {
-    mutate,
-    ...asyncResult,
-  }
+        data: params,
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries('projects'),
+    }
+  )
 }
 
 export const useAdditProject = () => {
