@@ -78,7 +78,8 @@ export const List = ({ users, ...props }: ListProps) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={'edit'}></Menu.Item>
+                    <Menu.Item key={'edit'}>编辑</Menu.Item>
+                    <Menu.Item key={'delete'}>删除</Menu.Item>
                   </Menu>
                 }
               >

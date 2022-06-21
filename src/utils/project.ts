@@ -1,6 +1,4 @@
 import { Project } from 'screens/project-list/list'
-
-import { useAsync } from 'utils/use-async'
 import { useHttp } from 'utils/http'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 
@@ -12,6 +10,7 @@ export const useProjects = (param?: Partial<Project>) => {
   )
 }
 
+//编辑
 export const useEditProject = () => {
   const client = useHttp()
   const queryClient = useQueryClient()
@@ -27,19 +26,30 @@ export const useEditProject = () => {
   )
 }
 
+//新建
 export const useAdditProject = () => {
-  const { run, ...asyncResult } = useAsync()
   const client = useHttp()
-  const mutate = (params: Partial<Project>) => {
-    return run(
+  const queryClient = useQueryClient()
+  return useMutation(
+    (params: Partial<Project>) =>
       client(`projects/${params.id}`, {
         data: params,
         method: 'POST',
-      })
-    )
-  }
-  return {
-    mutate,
-    ...asyncResult,
-  }
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries('projects'),
+    }
+  )
+}
+
+//获取详情
+export const useProject = (id?: number) => {
+  const client = useHttp()
+  return useQuery<Project>(
+    ['project', { id }],
+    () => client(`projects/${id}`),
+    {
+      enabled: !!id,
+    }
+  )
 }
