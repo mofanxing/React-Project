@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { URLSearchParamsInit, useSearchParams } from 'react-router-dom'
 import { cleanObject } from 'utils'
 
 /**
@@ -23,4 +23,15 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
       return setSearchParams(o)
     },
   ] as const
+}
+
+export const useSetUrlSearchParam = () => {
+  const [searchParams, setSearchParam] = useSearchParams()
+  return (params: { [key in string]: unknown }) => {
+    const o = cleanObject({
+      ...Object.fromEntries(searchParams),
+      ...params,
+    }) as URLSearchParamsInit
+    return setSearchParam(o)
+  }
 }
