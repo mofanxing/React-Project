@@ -25,7 +25,12 @@ export const ProjectModal = () => {
     form.setFieldsValue(editingProject)
   }, [editingProject, form])
   return (
-    <Drawer onClose={close} visible={projectModalOpen} width={'100%'}>
+    <Drawer
+      forceRender={true}
+      onClose={close}
+      visible={projectModalOpen}
+      width={'100%'}
+    >
       {isLoading ? (
         <Spin size={'large'}></Spin>
       ) : (
@@ -67,8 +72,6 @@ export const ProjectModal = () => {
           </Form>
         </>
       )}
-      <h1>project Modal</h1>
-      <Button onClick={close}>关闭</Button>
     </Drawer>
   )
 }
