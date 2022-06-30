@@ -20,3 +20,27 @@ export const useConfig = (
     },
   }
 }
+
+//删除
+export const useDeleteConfig = (queryKey: QueryKey) => {
+  useConfig(
+    queryKey,
+    (target, old) => old?.filter((item) => item.id !== target.id) || []
+  )
+}
+
+//编辑
+export const useEditConfig = (queryKey: QueryKey) => {
+  useConfig(
+    queryKey,
+    (target, old) =>
+      old?.map((item) =>
+        item.id === target.id ? { ...item, ...target } : item
+      ) || []
+  )
+}
+
+//添加
+export const useAddConfig = (queryKey: QueryKey) => {
+  useConfig(queryKey, (target, old) => (old ? [...old, target] : []))
+}

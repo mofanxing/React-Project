@@ -1,7 +1,7 @@
 import { Project } from 'screens/project-list/list'
 import { useHttp } from 'utils/http'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { useProjectsSearchParams } from 'screens/project-list/util'
+import { QueryKey, useMutation, useQuery, useQueryClient } from 'react-query'
+import { useEditConfig } from './use-optimistic-options'
 
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp()
@@ -12,37 +12,17 @@ export const useProjects = (param?: Partial<Project>) => {
 }
 
 //编辑
-export const useEditProject = () => {
+export const useEditProject = (queryKey: QueryKey) => {
   const client = useHttp()
-  const queryClient = useQueryClient()
-  const [searchParams] = useProjectsSearchParams()
-  const queryKey = ['projects', searchParams]
   return useMutation(
     (params: Partial<Project>) =>
       client(`projects/${params.id}`, {
         method: 'PATCH',
         data: params,
       }),
-    {
-      onSuccess: () => queryClient.invalidateQueries(queryKey),
-      async onMutate(target: Partial<Project>) {
-        const previousItems = queryClient.getQueryData(queryKey)
-        queryClient.setQueryData(queryKey, (old?: Project[]) => {
-          return (
-            old?.map((project) =>
-              project.id === target.id ? { ...project, ...target } : project
-            ) || []
-          )
-        })
-        return { previousItems }
-      },
-      onError(error: any, newItem: any, context: any) {
-        queryClient.setQueryData(queryKey, context.previousItems)
-      },
-    }
+    useEditConfig(queryKey)
   )
 }
-
 //新建
 export const useAdditProject = () => {
   const client = useHttp()
